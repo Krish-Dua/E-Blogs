@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head.ejs') %>
+    <title>Document</title>
+  </head>
+
+  <body>
+    <%- include('./partials/navbar.ejs') %>
+
+    <% if (typeof user !== 'undefined' && user) { %>
+     <h1 class="text-center">You are Already logged in</h1> 
+    <% } else { %>
+      <div class="container">
+        <div class="container mt-3">
+          <h2 class="text-center mb-3">Signup</h2>
+          <form action="/auth/signup" method="post" enctype="multipart/form-data">
+            <div class="mb-4">
+              <label for="profileImage" class="form-label">Profile Image</label>
+              <input
+                type="file"
+                accept="image/*"
+                class="form-control"
+                id="profileImage"
+                name="profileImage"
+                aria-describedby="emailHelp"
+              />
+            </div>
+            <div class="mb-4">
+              <label for="username" class="form-label">Enter username</label>
+              <input
+                type="text"
+                required
+                class="form-control"
+                id="username"
+                name="username"
+                aria-describedby="emailHelp"
+              />
+            </div>
+            <div class="mb-4">
+              <label for="email" class="form-label">Email address</label>
+              <input
+                type="email"
+                required
+                class="form-control"
+                id="email"
+                name="email"
+                aria-describedby="emailHelp"
+              />
+              <div id="emailHelp" class="form-text">
+                We'll never share your email with anyone else.
+              </div>
+            </div>
+            <div class="mb-4">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                required
+                minlength="8"
+                class="form-control"
+                name="password"
+                id="password"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    <% } %>
+   
+  </body>
+  <%- include('./partials/scripts') %>
+</html>

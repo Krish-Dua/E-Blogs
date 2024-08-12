@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head.ejs') %>
+        <title>Document</title>
+</head>
+
+<body>
+    <%- include('./partials/navbar.ejs') %>
+
+
+<% if (user) { %>
+    
+    <div class="container mt-5">
+
+        <form action="/blog/add" method="post" enctype="multipart/form-data">
+
+            <div class="mb-4">
+                <label for="blogImage" class="form-label">Blog Image</label>
+                <input type="file" accept="image/*" required class="form-control" id="blogImage" name="blogImage" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-4">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" required name="title" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-4">
+                <label for="content" class="form-label">Content</label>
+                <textarea name="content" class="form-control" id="content" required rows="12" style="resize: none;"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+        </form>
+    </div>
+<% } else { %>
+    <h1 class="text-center">login first dont be smart!!</h1>
+
+<% } %>
+
+
+        <%- include('./partials/scripts') %>
+</body>
+
+</html>

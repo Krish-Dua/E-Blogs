@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <%- include('./partials/head.ejs') %>
+    <title>Document</title>
+</head>
+<body>
+    <%- include('./partials/navbar.ejs') %>
+<% if (typeof user !== 'undefined' && user) { %>
+ <h1 class="text-center">Already logged in</h1>
+<% } else { %>
+ 
+  <% if (locals.message) { %>
+    <div class="alert alert-danger" role="alert">
+      <%= locals.message %>
+    </div>
+         
+    <% } %>
+<div class="container mt-5">
+<h2 class="text-center">Login</h2>
+  <form action="/auth/login" method="post" >
+      <div class="mb-4">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" required class="form-control" id="email" name="email" aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+      </div>
+      <div class="mb-4">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" required class="form-control" name="password" id="password">
+      </div>
+<p>Don't have an account? <a href="/auth/signup">Create account</a></p>
+      <button type="submit" class="btn btn-primary">Submit</button>
+   
+    </form>
+</div>
+
+<% } %>
+
+</body>
+<%- include('./partials/scripts') %>
+</html>
