@@ -4,6 +4,8 @@ const User = require("../modals/User.modal.js");
 const bcrypt = require("bcrypt");
 const multer  = require('multer');
 const { genToken, verifyToken } = require("../services/token.js");
+const {uploadonCloudinary}  = require('../services/cloudinary_upload.js')
+const fs = require('fs');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -35,9 +37,14 @@ router.get("/logout", (req, res) => {
 });
 
 router.post("/signup",upload.single("profileImage") ,async (req, res) => {
-const profileImage= req.file?req.file.filename:"default_user_img.jpg"
-  const { username, email, password, } = req.body;
+  let profileImage
+  const { username, email, password } = req.body;
   try {
+    if (req.file) {
+      const result = await uploadonCloudinary(req.file.path);
+      profileImage = result.url;
+      fs.unlinkSync(req.file.path);
+    }
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     const user = await User.create({
@@ -56,6 +63,8 @@ const profileImage= req.file?req.file.filename:"default_user_img.jpg"
     console.log(error);
   }
 });
+     
+
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
