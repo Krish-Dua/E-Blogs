@@ -4,8 +4,12 @@
     <%- include('./partials/head.ejs') %>
     <title>Document</title>
   </head>
-
-  <body>
+  <style>
+    pre {
+      font-family:sans-serif;  
+    }
+  </style>
+  <body class="" >
     <%- include('./partials/navbar.ejs') %>
   <% if (user) { %>
     <div class="container pt-3 pb-5">
